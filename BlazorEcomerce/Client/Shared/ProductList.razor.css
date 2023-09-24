@@ -1,0 +1,10 @@
+﻿.card {
+    width: 444px;
+}
+
+
+.listContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

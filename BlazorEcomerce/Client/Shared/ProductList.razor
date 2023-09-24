@@ -1,0 +1,42 @@
+﻿@inject HttpClient Http 
+@using BlazorEcomerce.Shared;
+
+
+<h3>ProductList</h3>
+<div class="listContainer">
+
+    @foreach (var item in Products)
+    {
+                <div class="card p-3 bg-white">
+                    <div class="about-product text-center mt-2">
+                        <img class="media-img" src="@item.ImageUrl" alt="@item.Title" width="300">
+                        <div>
+                            <h4>@item.Title</h4>
+                        </div>
+                    </div>
+                    <div class="stats mt-2">
+                        <div class="d-flex justify-content-between p-price"><span>@item.Description</span></div>
+                    </div>
+                    <div class="d-flex justify-content-between total font-weight-bold mt-4"><span>Precio</span><span>Q @item.Price</span></div>
+                </div>
+        
+    }
+</div>
+
+@code {
+    private static List<Product> Products = new List<Product>();
+    // Inicia el componente
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Http.GetFromJsonAsync<List<Product>>("api/Product");
+        if(result != null)
+        {
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
+            Products = result;
+        }
+    }
+
+}
