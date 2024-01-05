@@ -3,24 +3,24 @@
 
 
 <h3>ProductList</h3>
+<div class="container">
 <div class="listContainer">
 
     @foreach (var item in Products)
     {
-                <div class="card p-3 bg-white">
-                    <div class="about-product text-center mt-2">
-                        <img class="media-img" src="@item.ImageUrl" alt="@item.Title" width="300">
-                        <div>
-                            <h4>@item.Title</h4>
-                        </div>
-                    </div>
-                    <div class="stats mt-2">
-                        <div class="d-flex justify-content-between p-price"><span>@item.Description</span></div>
-                    </div>
-                    <div class="d-flex justify-content-between total font-weight-bold mt-4"><span>Precio</span><span>Q @item.Price</span></div>
+            <div class="card product-card mt-3">
+                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Title" >
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Description.</p>
+                    <p class="card-text"><strong>Precio:</strong> $ @item.Price</p>
+                    <a href="#" class="btn btn-primary">Ver detalles</a>
                 </div>
+            </div>
+              
         
     }
+</div>
 </div>
 
 @code {
@@ -37,6 +37,7 @@
             }
             Products = result;
         }
-    }
+
+    }
 
 }

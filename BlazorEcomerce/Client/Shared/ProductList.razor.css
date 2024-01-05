@@ -2,9 +2,21 @@
     width: 444px;
 }
 
+.container {
+    display: grid;
+    place-items: center;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
 
 .listContainer {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+}
+
+
+.product-card {
+    max-width: 400px;
 }

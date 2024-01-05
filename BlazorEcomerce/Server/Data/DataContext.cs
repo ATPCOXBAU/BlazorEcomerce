@@ -1,54 +1,63 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using BlazorEcomerce.Shared;
+using Microsoft.EntityFrameworkCore;
 
-namespace BlazorEcomerce.Server.Data
+namespace BlazorEcomerce.Server;
+
+public partial class DataContext : DbContext
 {
-    public class DataContext: DbContext
+    public DataContext()
     {
-        public DataContext(DbContextOptions<DataContext> options) :base(options)
-        { 
-
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Product>().HasData(
-                new Product
-                {
-                    Id = 1,
-                    Title = "Epson, LQ-590II, Impresora Matriz De Punto Para Entornos De Impresión Exigentes",
-                    Description = "La serie Epson LQ-590II ofrece la durabilidad y la facilidad de uso para requisitos críticos de impresión diaria.",
-                    ImageUrl = @$"https://electronicapanamericana.com/wp-content/uploads/L3210.jpg",
-                    Price = 3090m
-
-                },
-            new Product
-            {
-                Id = 2,
-                Title = "Tablet Apple IPad 9, De 10.2 Pulgadas, 64GB, WiFi, Pantalla Retina, Multitouch",
-                Description = "Marca: Appple",
-                ImageUrl = @$"https://ishop.gt/cdn/shop/products/Sin_titulo_2_4c515b86-0190-4695-9343-fe1e0668e962_1200x.jpg?v=1669418179",
-                Price = 2899m
-
-            },
-            new Product
-            {
-                Id = 3,
-                Title = "Tablet Apple IPad 9, De 10.2 Pulgadas, 64GB, WiFi, Pantalla Retina, Multitouch",
-                Description = "Marca: Appple",
-                ImageUrl = @$"https://ishop.gt/cdn/shop/products/Sin_titulo_2_4c515b86-0190-4695-9343-fe1e0668e962_1200x.jpg?v=1669418179",
-                Price = 2899m
-
-            },
-            new Product
-            {
-                Id = 4,
-                Title = "Consola Nintendo Switch Neon Version 2, JoyCon Azul/Rojo",
-                Description = "Nintendo Switch combina la potencia de una consola para el hogar con la movilidad de una consola portátil. Una nueva era para los videojuegos que te ofrece nuevas maneras de jugar, donde quieras, como quieras, cuando quieras.",
-                ImageUrl = @$"https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_2.0/c_scale,w_400/ncom/en_US/switch/split-cta-system",
-                Price = 3324m
-
-            } );
-        }
-        public DbSet<Product> Products { get; set; }
     }
+
+    public DataContext(DbContextOptions<DataContext> options)
+        : base(options)
+    {
+    }
+
+    public virtual DbSet<Clients> Clients { get; set; }
+
+    public virtual DbSet<Product> Products { get; set; }
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Clients>(entity =>
+        {
+            entity.HasKey(e => e.ClientId).HasName("PK__Client__E67E1A0456348753");
+
+            entity.HasIndex(e => e.Email, "UQ__Client__A9D1053458887647").IsUnique();
+
+            entity.Property(e => e.ClientId)
+                .ValueGeneratedNever()
+                .HasColumnName("ClientID");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.LastLoginDate).HasColumnType("datetime");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.PasswordHash)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.RegistrationDate).HasColumnType("date");
+        });
+
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+        });
+
+        OnModelCreatingPartial(modelBuilder);
+    }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
