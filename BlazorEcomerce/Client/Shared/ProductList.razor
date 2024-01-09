@@ -1,42 +1,42 @@
-﻿@inject HttpClient Http 
-@using BlazorEcomerce.Shared;
+﻿@inject IProductService ProductService;
 
 
 <h3>ProductList</h3>
-<div class="container">
-<div class="listContainer">
 
-    @foreach (var item in Products)
-    {
-            <div class="card product-card mt-3">
-                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Title" >
-                <div class="card-body">
-                    <h5 class="card-title">@item.Title</h5>
-                    <p class="card-text">@item.Description.</p>
-                    <p class="card-text"><strong>Precio:</strong> $ @item.Price</p>
-                    <a href="#" class="btn btn-primary">Ver detalles</a>
-                </div>
+@if (ProductService.Products == null || ProductService.Products.Count == 0)
+{
+    <span>Loading...........</span>
+}
+else
+{
+
+
+    <div class="listContainer">
+
+        @foreach (var item in ProductService.Products)
+        {
+
+            <div class="card  p-3 bg-white m-3 w-350">
+                 <div class=image-container>
+                    <img src="@item.ImageUrl" alt="@item.Title">
+                 </div>
+                 <div class="text">
+                    <h4 class="word-wrap">@item.Title</h4>
+                 </div>
+                <a class="button-9" href="/product/@item.Id">
+                    View Product
+                </a>
             </div>
-              
-        
-    }
-</div>
-</div>
+
+
+        }
+    </div>
+}
 
 @code {
-    private static List<Product> Products = new List<Product>();
-    // Inicia el componente
     protected override async Task OnInitializedAsync()
     {
-        var result = await Http.GetFromJsonAsync<List<Product>>("api/Product");
-        if(result != null)
-        {
-            foreach (var item in result)
-            {
-                Console.WriteLine(item);
-            }
-            Products = result;
-        }
+        await ProductService.GetProducts();
 
     }
 
