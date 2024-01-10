@@ -1,11 +1,14 @@
 ﻿@inject IProductService ProductService;
 
 
-<h3>ProductList</h3>
-
-@if (ProductService.Products == null || ProductService.Products.Count == 0)
+@if (ProductService.Products == null )
 {
     <span>Loading...........</span>
+}
+else if  (ProductService.Products.Count == 0)
+{
+    <span>Sorry, We didn't find products available.</span>
+
 }
 else
 {
@@ -21,11 +24,12 @@ else
                     <img src="@item.ImageUrl" alt="@item.Title">
                  </div>
                  <div class="text">
-                    <h4 class="word-wrap">@item.Title</h4>
+                    <h4 class="word-wrap" >@item.Title</h4>
                  </div>
-                <a class="button-9" href="/product/@item.Id">
+                <button class="button-9" onclick="@(() => NavigateToProduct(item.Id))">
                     View Product
-                </a>
+                </button>
+
             </div>
 
 
@@ -34,10 +38,23 @@ else
 }
 
 @code {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+
     protected override async Task OnInitializedAsync()
     {
-        await ProductService.GetProducts();
+        if (ProductService.Products.Count == 0)
+        {
+            Console.WriteLine("Vacio");
+            await ProductService.GetProducts();
+        }
+   
 
     }
 
+    private void NavigateToProduct(int productId)
+    {
+        NavigationManager.NavigateTo($"/product/{productId}");
+    }
 }

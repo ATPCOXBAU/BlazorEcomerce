@@ -11,7 +11,6 @@ namespace BlazorEcomerce.Client.Services.ProductService
             this.http = http;
         }
         public  List<Product> Products { get; set; } = new List<Product>();
-        public Product Product { get; set; } = new Product();
         
 
         public async Task<ServiceResponse<Product>> GetProductById(int Id)
