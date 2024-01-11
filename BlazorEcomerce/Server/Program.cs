@@ -1,6 +1,5 @@
 global using BlazorEcomerce.Shared;
 global using Microsoft.EntityFrameworkCore;
-global using BlazorEcomerce.Server;
 using BlazorEcomerce.Server.Data;
 using BlazorEcomerce.Server.Services.ProductService;
 using BlazorEcomerce.Server.Services.CategoryService;
@@ -11,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddControllersWithViews();

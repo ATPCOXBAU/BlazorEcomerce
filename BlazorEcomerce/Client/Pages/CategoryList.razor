@@ -11,7 +11,7 @@
         <ul>
         @foreach (Category cat in categoryService.Categories)
         {
-                <li><a onclick="@(() => NavigateToProduct(cat.CategoryId))"><span>@cat.Name.ToUpperInvariant()</span></a></li>
+                <li><a onclick="@(() => NavigateToProduct(cat.CategoryId))"><span>@cat.CategoryName.ToUpperInvariant()</span></a></li>
         }
         </ul>
   
