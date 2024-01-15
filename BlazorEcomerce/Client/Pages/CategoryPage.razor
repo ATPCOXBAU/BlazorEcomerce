@@ -1,0 +1,42 @@
+﻿@page "/category/{catId:int}"
+@inject ICategoryService categoryService
+
+@if (products == null)
+{
+    <span>@message</span>
+}
+else if (products.Count == 0) {
+    <h2>No products for this category</h2>
+}
+else
+{
+    <ProductList CurrentCategory=products ></ProductList>
+}
+
+@code {
+    private string message;
+    private List<Product> products = new List<Product>();
+    [Parameter]
+    public int CatId { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        message = "Loading Product....";
+
+        var result = await categoryService.GetProductsByCategory(CatId);
+        if (!result.Success)
+        {
+            message = result.Message;
+        }
+        else
+        {
+            products = result.Data;
+
+        }
+
+
+    }
+
+
+
+}

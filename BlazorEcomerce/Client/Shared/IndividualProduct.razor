@@ -1,0 +1,59 @@
+﻿@inject IProductService productService
+
+@if (product == null)
+{
+    <div class="container">
+    <LoadSpinner></LoadSpinner>
+    </div>
+}
+else
+{
+
+    <div class="container">
+             <div class="card  p-3 bg-white m-3">
+                <div class="text">
+                    <h2 class="word-wrap">@product.Title</h2>
+                </div>
+                <div class="middle_container">
+                    <div class=image-container>
+                    <img src="@product.ImageUrl" alt="@product.Title">
+                    </div>
+                    <div class="text">
+                        <h4 class="word-wrap">@product.Description</h4>
+                    </div>
+                </div>
+                <button class="button-9">
+                    View Product
+                </button>
+
+            </div> 
+    </div>
+
+}
+
+
+@code {
+    private Product product;
+    private string message;
+    [Parameter]
+    public int Id { get; set; }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        message = "Loading Product....";
+
+        var result = await productService.GetProductById(Id);
+        if (!result.Success)
+        {
+            message = result.Message;
+        }
+        else
+        {
+            product = result.Data;
+
+        }
+
+
+    }
+}

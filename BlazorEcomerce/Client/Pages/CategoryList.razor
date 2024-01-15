@@ -34,7 +34,6 @@
     private async void NavigateToProduct(int productId)
     {
         var result = await categoryService.GetProductsByCategory(productId);
-        productService.Products = result;
-        NavigationManager.NavigateTo($"");
+        NavigationManager.NavigateTo($"/category/{productId}");
     }
 }

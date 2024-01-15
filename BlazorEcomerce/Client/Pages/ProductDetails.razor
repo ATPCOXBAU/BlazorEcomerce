@@ -2,55 +2,15 @@
 @inject IProductService ProductService
 
 
-@if (product == null)
-{
-    <span>@message</span>
-}
-else
-{
-    <div class="card p-3 bg-white">
-        <div class="about-product text-center mt-2">
-            <img class="media-img" src="@product.ImageUrl" alt="@product" width="300">
-            <div>
-                <h4>@product.Title</h4>
-            </div>
-        </div>
-        <div class="stats mt-2">
-            <div class="d-flex justify-content-between p-price"><span>@product.Description</span></div>
-        </div>
-        <div class="d-flex justify-content-between total font-weight-bold mt-4"><span>Precio</span><span> $ @product.Price</span></div>
-    </div>
-}
+<IndividualProduct Id=Id></IndividualProduct>
 
 
 @code {
-    private Product product;
     private string message;
     [Parameter]
     public int Id { get; set; }
 
 
-    protected override async Task OnParametersSetAsync()
-    {
-        message = "Loading Product....";
-
-        var result = await ProductService.GetProductById(Id);
-        if (!result.Success)
-        {
-            message = result.Message;
-        }
-        else
-        {
-            product = result.Data;
-
-        }
-
-
-    }
-
-  
-
-
-
+ 
 
 }

@@ -1,15 +1,16 @@
 global using BlazorEcomerce.Shared;
 global using  System.Net.Http.Json;
 global using BlazorEcomerce.Client.Services.ProductService;
+global using BlazorEcomerce.Client.Services.CategoryService;
 
 
 using BlazorEcomerce.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using BlazorEcomerce.Client.Services.CategoryService;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
+builder.Services.AddBlazorBootstrap();
 builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();

@@ -5,7 +5,8 @@
     display: flex;
     flex-direction: column;
     background: rgb(204,242,250);
-    background: linear-gradient(336deg, rgba(204,242,250,1) 12%, rgba(248,248,248,1) 71%);
+    background-color: #beecff;
+    background-image: linear-gradient(315deg, #beecff 0%, #ffffff 50%, #beecff 100%);
 }
 
 main {

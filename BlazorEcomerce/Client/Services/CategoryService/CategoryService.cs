@@ -25,12 +25,12 @@ namespace BlazorEcomerce.Client.Services.CategoryService
             }
         }
 
-        public async  Task<List<Product>?> GetProductsByCategory(int id)
+        public async  Task<ServiceResponse<List<Product>>?> GetProductsByCategory(int id)
         {
             var result = await http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/category/ById?Id={id}");
             if (result != null && result.Data != null)
             {
-                return result.Data;
+                return result;
             }
             else
             {

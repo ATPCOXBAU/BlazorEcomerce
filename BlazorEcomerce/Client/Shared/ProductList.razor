@@ -1,14 +1,9 @@
 ﻿@inject IProductService ProductService;
 
 
-@if (ProductService.Products == null )
+@if (ProductService.Products == null || ProductService.Products.Count == 0)
 {
-    <span>Loading...........</span>
-}
-else if  (ProductService.Products.Count == 0)
-{
-    <span>Sorry, We didn't find products available.</span>
-
+    <div class="loader" style="--b: 20px;--c:#000;width:80px;--n:15;--g:7deg"> as</div>
 }
 else
 {
@@ -19,7 +14,7 @@ else
         @foreach (var item in ProductService.Products)
         {
 
-            <div class="card  p-3 bg-white m-3 w-350">
+            <div class="card  p-3  m-3 w-350">
                  <div class=image-container>
                     <img src="@item.ImageUrl" alt="@item.Title">
                  </div>
@@ -41,13 +36,32 @@ else
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 
+    private string message { get; set; } = "";
+
+    [Parameter]
+    public List<Product> CurrentCategory { get; set; } = new List<Product>();
 
     protected override async Task OnInitializedAsync()
     {
-        if (ProductService.Products.Count == 0)
+        message = "Loading Products .........";
+
+        if (CurrentCategory.Count > 0)
         {
-            Console.WriteLine("Vacio");
+            Console.WriteLine("CATEGORIASSS");
+            ProductService.Products = CurrentCategory;
+
+        }
+        if (ProductService.Products.Count == 0 || CurrentCategory.Count==0)
+        {
+
             await ProductService.GetProducts();
+        }
+
+        if (ProductService.Products.Count == 0 )
+        {
+
+            message = "No products available";
+
         }
    
 
