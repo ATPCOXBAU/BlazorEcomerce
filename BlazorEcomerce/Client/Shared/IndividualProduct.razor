@@ -1,9 +1,10 @@
 ﻿@inject IProductService productService
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 
 @if (product == null)
 {
     <div class="container">
-    <LoadSpinner></LoadSpinner>
+        <div class="loader" style="--b: 20px;--c:#000;width:80px;--n:15;--g:7deg"></div>
     </div>
 }
 else
@@ -20,14 +21,21 @@ else
                     </div>
                     <div class="text">
                         <h4 class="word-wrap">@product.Description</h4>
+
                     </div>
                 </div>
                 <button class="button-9">
                     View Product
                 </button>
 
-            </div> 
+            </div
+            <h2> Local Storage: @noteContent.FirstOrDefault()</h2>
+            <button @onclick="UpdateLocalStorage">Save</button>
+            <button @onclick="ClearLocalStorage">Clear</button>
+
     </div>
+        <ShoppingCart />
+
 
 }
 
@@ -37,6 +45,37 @@ else
     private string message;
     [Parameter]
     public int Id { get; set; }
+    const string noteKey = "note";
+    private List<string> noteContent { get; set; } = new List<string>();
+
+
+
+    public async Task UpdateLocalStorage()
+    {        
+        try
+        {
+            noteContent.Add(noteContent.Count.ToString());
+            await localStore.SetItemAsync(noteKey, noteContent );
+            noteContent =await localStore.GetItemAsync<List<string>>(noteKey);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+        }
+    }
+    public async Task ClearLocalStorage()
+    {
+        noteContent = new List<string>();
+        await localStore.ClearAsync();
+        StateHasChanged();
+
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        noteContent = await localStore.GetItemAsync<List<string>>(noteKey);
+    }
 
 
     protected override async Task OnParametersSetAsync()
@@ -56,4 +95,5 @@ else
 
 
     }
+
 }

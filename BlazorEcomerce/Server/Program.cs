@@ -1,5 +1,7 @@
 global using BlazorEcomerce.Shared;
 global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+
 using BlazorEcomerce.Server.Data;
 using BlazorEcomerce.Server.Services.ProductService;
 using BlazorEcomerce.Server.Services.CategoryService;
@@ -15,7 +17,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 var app = builder.Build();

@@ -48,6 +48,10 @@ public partial class DataContext : DbContext
             entity.Property(e => e.ImageUrl).HasColumnName("image_url");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.Title).HasColumnName("title");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Products)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("fk_category_id");
         });
 
         OnModelCreatingPartial(modelBuilder);

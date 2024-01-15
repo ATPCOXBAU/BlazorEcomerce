@@ -1,16 +1,22 @@
 ﻿@inject IProductService ProductService;
 
-
-@if (ProductService.Products == null || ProductService.Products.Count == 0)
+@if (IsLoading)
 {
-    <div class="loader" style="--b: 20px;--c:#000;width:80px;--n:15;--g:7deg"> as</div>
+    <div class="position-relative min-vh-100 d-flex align-items-center justify-content-center p-3">
+        <div class="loader" style="--b: 20px;--c:#000;width:80px;--n:15;--g:7deg"></div>
+    </div>
+}
+else if (IsVacia)
+{
+    <div class="position-relative min-vh-100 d-flex align-items-center justify-content-center p-3">
+        <h1> No hay productos Que mostrar</h1>
+    </div>
 }
 else
 {
 
 
     <div class="listContainer">
-
         @foreach (var item in ProductService.Products)
         {
 
@@ -30,9 +36,15 @@ else
 
         }
     </div>
+
+    <ShoppingCart />
+
 }
 
 @code {
+    private Boolean IsLoading = true;
+    private Boolean IsVacia = false;
+
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 
@@ -43,27 +55,22 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        message = "Loading Products .........";
 
         if (CurrentCategory.Count > 0)
         {
-            Console.WriteLine("CATEGORIASSS");
             ProductService.Products = CurrentCategory;
+            IsLoading = false;
 
         }
+
         if (ProductService.Products.Count == 0 || CurrentCategory.Count==0)
         {
 
             await ProductService.GetProducts();
-        }
-
-        if (ProductService.Products.Count == 0 )
-        {
-
-            message = "No products available";
+            IsLoading = false;
 
         }
-   
+        IsVacia = ProductService.Products.Count == 0;
 
     }
 
