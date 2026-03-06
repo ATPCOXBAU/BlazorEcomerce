@@ -1,26 +1,24 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BlazorEcomerce</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿<header class="top-navbar">
+    <div class="navbar-inner">
+        <a class="brand" href="">ECPR</a>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+        <button title="Navigation menu" class="navbar-toggle" @onclick="ToggleNavMenu">
+            <span class="oi oi-menu"></span>
+        </button>
+
+        <nav class="nav-links @NavMenuCssClass">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                Home
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
             <NavLink class="nav-link" href="categories">
-                <span class="oi oi-tags" aria-hidden="true"></span> Categories
+                Categories
             </NavLink>
-        </div>
-    </nav>
-</div>
+            <NavLink class="nav-link" href="cartview">
+                <span class="oi oi-cart"></span> Cart
+            </NavLink>
+        </nav>
+    </div>
+</header>
 
 @code {
     private bool collapseNavMenu = true;

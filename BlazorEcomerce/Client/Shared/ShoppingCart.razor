@@ -1,9 +1,21 @@
-﻿    <NavLink class="nav-link" href="cartview">
+﻿@inject Blazored.LocalStorage.ILocalStorageService localStore
 
-    <button class="btn">
-            <span class="oi oi-cart" aria-hidden="true"></span>
-   
-</button>
+<NavLink class="nav-link" href="cartview">
+    <button class="btn cart-btn">
+        <span class="oi oi-cart" aria-hidden="true"></span>
+        @if (cartCount > 0)
+        {
+            <span class="cart-badge">@cartCount</span>
+        }
+    </button>
 </NavLink>
 
+@code {
+    private int cartCount = 0;
 
+    protected override async Task OnInitializedAsync()
+    {
+        var items = await localStore.GetItemAsync<List<Product>>("note");
+        cartCount = items?.Count ?? 0;
+    }
+}

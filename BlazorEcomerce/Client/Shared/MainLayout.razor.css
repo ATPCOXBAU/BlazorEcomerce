@@ -1,89 +1,22 @@
-
-
 .page {
-    position: relative;
     display: flex;
     flex-direction: column;
-   background: linear-gradient(45deg , #beecff 10%,transparent 11%, transparent 89% , #beecff 90%),linear-gradient(135deg , #beecff 10%,transparent 11%, transparent 89% , #beecff 90%),radial-gradient(circle, transparent 25%, #ffffff  26%),linear-gradient(45deg, transparent 46%, #beecff 47%, #beecff 52%, transparent 53%), linear-gradient(135deg, transparent 46%, #beecff 47%, #beecff 52%, transparent 53%);
-        background-size: 3em 3em;
-        background-color: #ffffff;
-        opacity: 1
+    min-height: 100vh;
+    background-color: var(--color-bg);
 }
 
 main {
     flex: 1;
 }
 
-.sidebar {
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(3px);
-    color: black;
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
 }
 
-.top-row {  
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-
-}
-
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-        text-decoration: none;
-    }
-
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: underline;
-    }
-
-    .top-row ::deep a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-@media (max-width: 640.98px) {
-    .top-row:not(.auth) {
-        display: none;
-    }
-
-    .top-row.auth {
-        justify-content: space-between;
-    }
-
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        margin-left: 0;
-    }
-}
-
-@media (min-width: 641px) {
-    .page {
-        flex-direction: row;
-    }
-
-    .sidebar {
-        width: 200px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
-    }
-
-    .top-row {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-
-    .top-row.auth ::deep a:first-child {
-        flex: 1;
-        text-align: right;
-        width: 0;
-    }
-
-    .top-row, article {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+@media (max-width: 640px) {
+    .content {
+        padding: 1rem;
     }
 }

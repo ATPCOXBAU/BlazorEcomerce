@@ -1,119 +1,110 @@
-﻿
-.container {
-    display: grid;
-    place-items: center;
-    margin-left: 5vw;
-    margin-right: 5vw;
+.loading-state,
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
 }
 
+.empty-state p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
 
 .listContainer {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
 }
 
-
 .card {
-    height: 475px;
-    width: 285px;
-    display: grid;
-    border-radius: 20px;
-    grid-template-rows: 250px 125px 100px;
-    background-color: #F8F8F8;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */a
-    transition-delay: 0.1s; /* Delay the transition on hover */
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .image-container {
-    height: 100%;
-    width: 100%;
+    height: 220px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--color-bg);
+    padding: 1rem;
 }
 
-    .image-container img {
-        max-height: 80%;
-        max-width: 80%;
-        object-fit: contain;
-
-    }
-
-
-    .button-9 {
-        appearance: button;
-        text-align: center;
-        text-decoration: none;
-        backface-visibility: hidden;
-        background-color: #405cf5;
-        border-radius: 20px;
-        border-width: 0;
-        box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
-        box-sizing: border-box;
-        color: #fff;
-        cursor: pointer;
-        font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
-        font-size: 100%;
-        height: 44px;
-        line-height: 1.15;
-        margin: 12px 0 0;
-        outline: none;
-        overflow: hidden;
-        padding: 10px 25px;
-        position: relative;
-        text-align: center;
-        text-transform: none;
-        transform: translateZ(0);
-        transition: all .2s,box-shadow .08s ease-in;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        width: 100%;
-    }
-
-.button-9:disabled {
-    cursor: default;
+.image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
 }
-
-.button-9:focus {
-    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
-}
-
 
 .text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0.75rem 1rem 0;
 }
 
 .text h4 {
-    overflow: hidden !important;
-    white-space: normal !important;
-    text-overflow: ellipsis !important;
-    font-size: 1rem;
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    line-height: 1.4;
 }
 
+.price {
+    padding: 0.25rem 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.button-9 {
+    margin: 0.75rem 1rem 1rem;
+    padding: 0.6rem;
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-align: center;
+}
+
+.button-9:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.button-9:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
 
 .loader {
-    --b: 10px; /* border thickness */
-    --n: 10; /* number of dashes*/
-    --g: 10deg; /* gap  between dashes*/
-    --c: red; /* the color */
-
-    width: 100px; /* size */
+    --b: 10px;
+    --n: 10;
+    --g: 10deg;
+    --c: var(--color-primary);
+    width: 60px;
     aspect-ratio: 1;
     border-radius: 50%;
-    padding: 1px; /* get rid of bad outlines */
-    background: conic-gradient(#0000,var(--c)) content-box;
-    --_m: /* we use +/-1deg between colors to avoid jagged edges */
-    repeating-conic-gradient(#0000 0deg, #000 1deg calc(360deg/var(--n) - var(--g) - 1deg), #0000 calc(360deg/var(--n) - var(--g)) calc(360deg/var(--n))), radial-gradient(farthest-side,#0000 calc(98% - var(--b)),#000 calc(100% - var(--b)));
+    padding: 1px;
+    background: conic-gradient(#0000, var(--c)) content-box;
+    --_m: repeating-conic-gradient(#0000 0deg, #000 1deg calc(360deg/var(--n) - var(--g) - 1deg), #0000 calc(360deg/var(--n) - var(--g)) calc(360deg/var(--n))),
+          radial-gradient(farthest-side, #0000 calc(98% - var(--b)), #000 calc(100% - var(--b)));
     -webkit-mask: var(--_m);
     mask: var(--_m);
     -webkit-mask-composite: destination-in;
@@ -122,7 +113,5 @@
 }
 
 @keyframes load {
-    to {
-        transform: rotate(1turn)
-    }
+    to { transform: rotate(1turn); }
 }

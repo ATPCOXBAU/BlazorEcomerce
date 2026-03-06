@@ -36,7 +36,7 @@
                                         <h5 class="mb-0">$@item.Price</h5>
                                     </div>
                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a onclick="@(() => DeleteFromCart(item.Id))" class="text-danger"><i class="oi oi-trash"></i></a>
+                                        <a @onclick="@(() => DeleteFromCart(item.Id))" class="text-danger" style="cursor:pointer"><i class="oi oi-trash"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                         <div class="card-body p-4 d-flex flex-row">
                             <div class="form-outline flex-fill">
                                 <input type="text" id="form1" class="form-control form-control-lg" />
-                                <label class="form-label" for="form1">Discound code</label>
+                                <label class="form-label" for="form1">Discount code</label>
                             </div>
                             <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>
                         </div>

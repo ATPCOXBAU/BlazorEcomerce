@@ -1,54 +1,40 @@
-﻿.btn {
+.cart-btn {
     position: fixed;
-    bottom: 20px; /* Ajusta la distancia desde la parte inferior de la pantalla según tu preferencia */
-    right: 20px; /* Ajusta la distancia desde la parte derecha de la pantalla según tu preferencia */
-    font-weight: 0;
+    bottom: 24px;
+    right: 24px;
     font-size: 20px;
     color: #fff;
-    background-color: #0066CC;
-    border: 2px solid #0066cc;
-    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
-    border-radius: 150px; /* Hace que el botón sea completamente redondo */
-    transition: 197ms;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    transition: background-color 0.2s, transform 0.2s;
     cursor: pointer;
+    z-index: 100;
 }
 
-    .btn:hover {
-        transition: 197ms;
-        padding: 10px 36px;
-        transform: translateY(-0px);
-        background-color: #fff;
-        color: #0066cc;
-        border: solid 2px #0066cc;
-    }
-
-
-@media only screen and (max-width: 600px ) {
-    .btn {
-        position: fixed;
-        bottom: 28px; /* Ajusta la distancia desde la parte inferior de la pantalla según tu preferencia */
-        right: 20px; /* Ajusta la distancia desde la parte derecha de la pantalla según tu preferencia */
-        font-weight: 0;
-        font-size: 18px;
-        color: #fff;
-        background-color: #0066CC;
-        border: 2px solid #0066cc;
-        box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
-        border-radius: 150px; /* Hace que el botón sea completamente redondo */
-        transition: 197ms;
-        align-items: center;
-        cursor: pointer;
-    }
-
-        .btn:hover {
-            transition: 197ms;
-            padding: 10px 36px;
-            transform: translateY(-0px);
-            background-color: #fff;
-            color: #0066cc;
-            border: solid 2px #0066cc;
-        }
-
+.cart-btn:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
 }
 
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: var(--color-danger);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

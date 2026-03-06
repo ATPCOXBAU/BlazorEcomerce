@@ -2,43 +2,37 @@
 
 @if (IsLoading)
 {
-    <div class="position-relative min-vh-100 d-flex align-items-center justify-content-center p-3">
-        <div class="loader" style="--b: 20px;--c:#000;width:80px;--n:15;--g:7deg"></div>
+    <div class="loading-state">
+        <div class="loader"></div>
     </div>
 }
 else if (IsVacia)
 {
-    <div class="position-relative min-vh-100 d-flex align-items-center justify-content-center p-3">
-        <h1> No hay productos Que mostrar</h1>
+    <div class="empty-state">
+        <p>No products to show</p>
     </div>
 }
 else
 {
-
-
     <div class="listContainer">
         @foreach (var item in ProductService.Products)
         {
-
-            <div class="card  p-3  m-3 w-350">
-                 <div class=image-container>
+            <div class="card">
+                <div class="image-container">
                     <img src="@item.ImageUrl" alt="@item.Title">
-                 </div>
-                 <div class="text">
-                    <h4 class="word-wrap" >@item.Title</h4>
-                 </div>
-                <button class="button-9" onclick="@(() => NavigateToProduct(item.Id))">
+                </div>
+                <div class="text">
+                    <h4>@item.Title</h4>
+                </div>
+                <div class="price">$@item.Price</div>
+                <button class="button-9" @onclick="@(() => NavigateToProduct(item.Id))">
                     View Product
                 </button>
-
             </div>
-
-
         }
     </div>
 
     <ShoppingCart />
-
 }
 
 @code {
