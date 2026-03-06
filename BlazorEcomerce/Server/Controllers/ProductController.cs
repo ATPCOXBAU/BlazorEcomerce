@@ -26,5 +26,12 @@ namespace BlazorEcomerce.Server.Controllers
             var result = await _productService.GetProductById(Id);
             return result;
         }
+
+        [HttpGet("search/{searchText}")]
+        public async Task<ServiceResponse<List<Product>>> SearchProducts(string searchText)
+        {
+            var result = await _productService.SearchProducts(searchText);
+            return result;
+        }
     }
 }

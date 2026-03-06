@@ -1,4 +1,5 @@
-﻿@inject Blazored.LocalStorage.ILocalStorageService localStore
+@inject ICartService CartService
+@implements IDisposable
 
 <NavLink class="nav-link" href="cartview">
     <button class="btn cart-btn">
@@ -15,7 +16,18 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var items = await localStore.GetItemAsync<List<Product>>("note");
-        cartCount = items?.Count ?? 0;
+        CartService.OnChange += OnCartChanged;
+        cartCount = await CartService.GetCartCount();
+    }
+
+    private async void OnCartChanged()
+    {
+        cartCount = await CartService.GetCartCount();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        CartService.OnChange -= OnCartChanged;
     }
 }

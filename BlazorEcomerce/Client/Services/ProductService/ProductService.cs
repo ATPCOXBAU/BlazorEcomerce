@@ -24,12 +24,20 @@ namespace BlazorEcomerce.Client.Services.ProductService
         {
             var result =
                 await http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product");
-            if (result!= null && result.Data != null)
+            if (result != null && result.Data != null)
             {
                 Products = result.Data;
             }
-          
-           
+        }
+
+        public async Task SearchProducts(string searchText)
+        {
+            var result =
+                await http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/product/search/{searchText}");
+            if (result != null && result.Data != null)
+            {
+                Products = result.Data;
+            }
         }
     }
 }

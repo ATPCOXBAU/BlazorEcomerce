@@ -1,6 +1,5 @@
-﻿@using System.Text.Json
-@inject IProductService productService
-@inject Blazored.LocalStorage.ILocalStorageService localStore
+﻿@inject IProductService productService
+@inject ICartService CartService
 
 @if (product == null)
 {
@@ -31,7 +30,7 @@ else
             }
             else
             {
-                 <button class="button-9" @onclick="UpdateLocalStorage">
+                 <button class="button-9" @onclick="AddToCart">
                     Add to Cart
                 </button>
             }
@@ -47,81 +46,23 @@ else
 
 @code {
     private Product product;
-    private string message;
     [Parameter]
     public int Id { get; set; }
-    const string noteKey = "note";
-    public bool IsinCart = false;
-    private List<Product> noteContent { get; set; } = new List<Product>();
+    private bool IsinCart = false;
 
-
-
-    public async Task UpdateLocalStorage()
-    {        
-        try
-        {
-            noteContent.Add(product);
-            IsinCart = true;
-            await localStore.SetItemAsync(noteKey, noteContent);
-            noteContent = await localStore.GetItemAsync<List<Product>>(noteKey);
-            StateHasChanged();
-        }
-        catch (Exception ex)
-        {
-        }
-    }
-    public async Task ClearLocalStorage()
+    private async Task AddToCart()
     {
-        noteContent = new List<Product>();
-        await localStore.ClearAsync();
-        StateHasChanged();
-
+        await CartService.AddToCart(product);
+        IsinCart = true;
     }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-
-    }
-
 
     protected override async Task OnParametersSetAsync()
     {
-        message = "Loading Product....";
-
-
-
         var result = await productService.GetProductById(Id);
-        if (!result.Success)
-        {
-            message = result.Message;
-
-        }
-        else
+        if (result.Success)
         {
             product = result.Data;
-            var localStorage = await localStore.GetItemAsync<List<Product>>(noteKey);
-            if (localStorage != null)
-            {
-                noteContent = localStorage;
-                foreach(var item in localStorage)
-                {
-                    if (item.Id == product.Id)
-                    {
-                        IsinCart = true;
-                        break;
-                    }
-                }
-
-            }
-            else
-            {
-                noteContent = new List<Product>();
-            }
-
+            IsinCart = await CartService.IsInCart(product.Id);
         }
-
-
     }
-
 }

@@ -1,0 +1,19 @@
+@page "/search/{searchText}"
+@inject IProductService ProductService
+
+<h2 class="search-title">Results for "@SearchText"</h2>
+
+<ProductList CurrentCategory="searchResults" />
+
+@code {
+    [Parameter]
+    public string SearchText { get; set; }
+
+    private List<Product> searchResults = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ProductService.SearchProducts(SearchText);
+        searchResults = ProductService.Products;
+    }
+}
