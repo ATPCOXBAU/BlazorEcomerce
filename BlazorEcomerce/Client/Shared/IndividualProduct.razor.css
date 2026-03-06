@@ -1,168 +1,100 @@
-﻿
 .container {
-    position: relative;
-    height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 0.3rem;
-
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
 }
 
-
-
-
-
 .card {
-    height: 600px;
-    width: auto;
-    max-width: 600px;
-    display: grid;
-    border-radius: 20px;
-    grid-template-rows: 100px 375px 100px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    max-width: 700px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .card:hover {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
-        a transition-delay: 0.1s; /* Delay the transition on hover */
+    box-shadow: var(--shadow-md);
 }
 
+.text {
+    padding: 0.75rem 1.5rem;
+}
+
+.text h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.text h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
 
 .middle_container {
-    display: inline-grid;
-    grid-template-columns: 50% 50% ;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
 }
 
 .image-container {
-    height: 100%;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--color-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    min-height: 250px;
 }
 
 .image-container img {
-        max-height: 80%;
-        max-width: 80%;
-        object-fit: contain;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
 }
-
 
 .button-9 {
-    appearance: button;
-    text-align: center;
-    text-decoration: none;
-    backface-visibility: hidden;
-    background-color: #405cf5;
-    border-radius: 20px;
-    border-width: 0;
-    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
-    box-sizing: border-box;
+    margin: 0 1.5rem 1.5rem;
+    padding: 0.75rem;
+    background-color: var(--color-primary);
     color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
     cursor: pointer;
-    font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
-    font-size: 100%;
-    height: 44px;
-    line-height: 1.15;
-    margin: 12px 0 0;
-    outline: none;
-    overflow: hidden;
-    padding: 10px 25px;
-    position: relative;
+    transition: background-color 0.2s;
     text-align: center;
-    text-transform: none;
-    transform: translateZ(0);
-    transition: all .2s,box-shadow .08s ease-in;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: 100%;
+    width: calc(100% - 3rem);
 }
 
-    .button-9:disabled {
-        cursor: default;
-    }
-
-    .button-9:focus {
-        box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
-    }
-
-
-.text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-style: italic;
+.button-9:hover {
+    background-color: var(--color-primary-hover);
 }
 
-    .text h2 {
-        text-align: center;
-        overflow: hidden !important;
-        white-space: normal !important;
-        text-overflow: ellipsis !important;
-        font-size: 2rem;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-    }
-
-  .text h4 {
-        overflow: hidden !important;
-        white-space: normal !important;
-        text-overflow: ellipsis !important;
-        font-size: 1rem;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-  }
-
-
-
-@media only screen and (max-width: 600px ) {
-    .card {
-        height: 450px;
-        width: auto;
-        max-width: 300px;
-        display: grid;
-        border-radius: 20px;
-        grid-template-rows: 125px 150px 125px;
-    }
-    .middle_container {
-        display: inline-grid;
-        grid-template-columns: 45% 55%;
-    }
-    .text h2 {
-        text-align: center;
-        overflow: hidden !important;
-        white-space: normal !important;
-        text-overflow: ellipsis !important;
-        font-size: 1.5rem;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-    }
-
-    .text h4 {
-        overflow: hidden !important;
-        white-space: normal !important;
-        text-overflow: ellipsis !important;
-        font-size: 1rem;
-        display: -webkit-box;
-        -webkit-line-clamp: 8;
-        -webkit-box-orient: vertical;
-    }
-
+.button-9:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 .loader {
-    --b: 10px; /* border thickness */
-    --n: 10; /* number of dashes*/
-    --g: 10deg; /* gap  between dashes*/
-    --c: red; /* the color */
-
-    width: 100px; /* size */
+    --b: 10px;
+    --n: 10;
+    --g: 10deg;
+    --c: var(--color-primary);
+    width: 60px;
     aspect-ratio: 1;
     border-radius: 50%;
-    padding: 1px; /* get rid of bad outlines */
-    background: conic-gradient(#0000,var(--c)) content-box;
-    --_m: /* we use +/-1deg between colors to avoid jagged edges */
-    repeating-conic-gradient(#0000 0deg, #000 1deg calc(360deg/var(--n) - var(--g) - 1deg), #0000 calc(360deg/var(--n) - var(--g)) calc(360deg/var(--n))), radial-gradient(farthest-side,#0000 calc(98% - var(--b)),#000 calc(100% - var(--b)));
+    padding: 1px;
+    background: conic-gradient(#0000, var(--c)) content-box;
+    --_m: repeating-conic-gradient(#0000 0deg, #000 1deg calc(360deg/var(--n) - var(--g) - 1deg), #0000 calc(360deg/var(--n) - var(--g)) calc(360deg/var(--n))),
+          radial-gradient(farthest-side, #0000 calc(98% - var(--b)), #000 calc(100% - var(--b)));
     -webkit-mask: var(--_m);
     mask: var(--_m);
     -webkit-mask-composite: destination-in;
@@ -171,7 +103,19 @@
 }
 
 @keyframes load {
-    to {
-        transform: rotate(1turn)
+    to { transform: rotate(1turn); }
+}
+
+@media (max-width: 600px) {
+    .middle_container {
+        grid-template-columns: 1fr;
+    }
+
+    .text h2 {
+        font-size: 1.25rem;
+    }
+
+    .image-container {
+        min-height: 200px;
     }
 }

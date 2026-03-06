@@ -6,5 +6,6 @@
  
         Task<ServiceResponse<Product>> GetProductById(int Id);
         Task GetProducts();
+        Task SearchProducts(string searchText);
     }
 }

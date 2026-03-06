@@ -1,9 +1,33 @@
-﻿    <NavLink class="nav-link" href="cartview">
+@inject ICartService CartService
+@implements IDisposable
 
-    <button class="btn">
-            <span class="oi oi-cart" aria-hidden="true"></span>
-   
-</button>
+<NavLink class="nav-link" href="cartview">
+    <button class="btn cart-btn">
+        <span class="oi oi-cart" aria-hidden="true"></span>
+        @if (cartCount > 0)
+        {
+            <span class="cart-badge">@cartCount</span>
+        }
+    </button>
 </NavLink>
 
+@code {
+    private int cartCount = 0;
 
+    protected override async Task OnInitializedAsync()
+    {
+        CartService.OnChange += OnCartChanged;
+        cartCount = await CartService.GetCartCount();
+    }
+
+    private async void OnCartChanged()
+    {
+        cartCount = await CartService.GetCartCount();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        CartService.OnChange -= OnCartChanged;
+    }
+}
