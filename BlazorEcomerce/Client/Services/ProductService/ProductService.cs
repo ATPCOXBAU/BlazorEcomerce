@@ -17,7 +17,7 @@ namespace BlazorEcomerce.Client.Services.ProductService
         {
             var result =
                    await http.GetFromJsonAsync<ServiceResponse<Product>>(ApiRoutes.ProductById + Id);
-            return result;
+            return result ?? new ServiceResponse<Product> { Success = false, Message = "Failed to load product." };
         }
 
         public async Task GetProducts()

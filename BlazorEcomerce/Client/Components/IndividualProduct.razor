@@ -1,3 +1,4 @@
+@page "/product/{Id:int}"
 @inject IProductService productService
 @inject ICartService CartService
 
@@ -39,13 +40,14 @@ else
 }
 
 @code {
-    private Product product;
+    private Product? product;
     [Parameter]
     public int Id { get; set; }
     private bool IsinCart = false;
 
     private async Task AddToCart()
     {
+        if (product == null) return;
         await CartService.AddToCart(product);
         IsinCart = true;
     }
@@ -53,7 +55,7 @@ else
     protected override async Task OnParametersSetAsync()
     {
         var result = await productService.GetProductById(Id);
-        if (result.Success)
+        if (result.Success && result.Data != null)
         {
             product = result.Data;
             IsinCart = await CartService.IsInCart(product.Id);

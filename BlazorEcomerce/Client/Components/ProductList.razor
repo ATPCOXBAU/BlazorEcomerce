@@ -1,12 +1,13 @@
-﻿@inject IProductService ProductService;
+﻿@inject IProductService ProductService
+@inject NavigationManager NavigationManager
 
-@if (IsLoading)
+@if (isLoading)
 {
     <div class="loading-state">
         <div class="loader"></div>
     </div>
 }
-else if (IsVacia)
+else if (isEmpty)
 {
     <div class="empty-state">
         <p>No products to show</p>
@@ -36,16 +37,11 @@ else
 }
 
 @code {
-    private Boolean IsLoading = true;
-    private Boolean IsVacia = false;
-
-    [Inject]
-    private NavigationManager NavigationManager { get; set; }
-
-    private string message { get; set; } = "";
+    private bool isLoading = true;
+    private bool isEmpty = false;
 
     [Parameter]
-    public List<Product> CurrentCategory { get; set; } = new List<Product>();
+    public List<Product> CurrentCategory { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,7 +49,7 @@ else
         if (CurrentCategory.Count > 0)
         {
             ProductService.Products = CurrentCategory;
-            IsLoading = false;
+            isLoading = false;
 
         }
 
@@ -61,10 +57,10 @@ else
         {
 
             await ProductService.GetProducts();
-            IsLoading = false;
+            isLoading = false;
 
         }
-        IsVacia = ProductService.Products.Count == 0;
+        isEmpty = ProductService.Products.Count == 0;
 
     }
 

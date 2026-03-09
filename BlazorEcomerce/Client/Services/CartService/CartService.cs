@@ -7,7 +7,7 @@ namespace BlazorEcomerce.Client.Services.CartService
         private readonly ILocalStorageService _localStorage;
         private const string CartKey = StorageKeys.Cart;
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
         public CartService(ILocalStorageService localStorage)
         {

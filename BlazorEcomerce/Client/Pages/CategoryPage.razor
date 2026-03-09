@@ -1,42 +1,48 @@
-﻿@page "/category/{catId:int}"
+@page "/category/{catId:int}"
 @inject ICategoryService categoryService
 
-@if (products == null)
+@if (isLoading)
 {
-    <span>@message</span>
+    <div class="loading-state">
+        <div class="loader"></div>
+    </div>
 }
-else if (products.Count == 0) {
+else if (errorMessage != null)
+{
+    <p>@errorMessage</p>
+}
+else if (products.Count == 0)
+{
     <h2>No products for this category</h2>
 }
 else
 {
-    <ProductList CurrentCategory=products ></ProductList>
+    <ProductList CurrentCategory="products" />
 }
 
 @code {
-    private string message;
-    private List<Product> products = new List<Product>();
+    private List<Product> products = new();
+    private string? errorMessage;
+    private bool isLoading = true;
+
     [Parameter]
     public int CatId { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
-        message = "Loading Product....";
+        isLoading = true;
+        errorMessage = null;
 
         var result = await categoryService.GetProductsByCategory(CatId);
-        if (!result.Success)
+        if (result == null || !result.Success)
         {
-            message = result.Message;
+            errorMessage = result?.Message ?? "Failed to load products.";
         }
         else
         {
-            products = result.Data;
-
+            products = result.Data ?? new();
         }
 
-
+        isLoading = false;
     }
-
-
-
 }

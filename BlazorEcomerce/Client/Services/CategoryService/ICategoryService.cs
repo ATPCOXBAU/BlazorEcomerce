@@ -5,7 +5,7 @@
         List<Category> Categories { get; set; }
         Task GetCategories();
 
-        Task<ServiceResponse<List<Product>>> GetProductsByCategory(int id);
+        Task<ServiceResponse<List<Product>>?> GetProductsByCategory(int id);
 
     }
 }

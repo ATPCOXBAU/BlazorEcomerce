@@ -1,4 +1,6 @@
-﻿<header class="top-navbar">
+﻿@inject NavigationManager NavigationManager
+
+<header class="top-navbar">
     <div class="navbar-inner">
         <a class="brand" href="">ECPR</a>
 
@@ -29,8 +31,6 @@
 </header>
 
 @code {
-    [Inject] private NavigationManager NavigationManager { get; set; }
-
     private bool collapseNavMenu = true;
     private string searchText = "";
 

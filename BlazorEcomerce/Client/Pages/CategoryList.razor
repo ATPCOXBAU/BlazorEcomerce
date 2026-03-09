@@ -1,39 +1,28 @@
-﻿@page "/categories"
+@page "/categories"
 @inject ICategoryService categoryService
-@inject IProductService productService
-
+@inject NavigationManager NavigationManager
 
 <div class="listContainer">
-    <h1> Categories</h1>
-
+    <h1>Categories</h1>
 
     <div class="list mt-5">
         <ul>
         @foreach (Category cat in categoryService.Categories)
         {
-                <li><a @onclick="@(() => NavigateToProduct(cat.CategoryId))"><span>@cat.CategoryName.ToUpperInvariant()</span></a></li>
+            <li><a @onclick="@(() => NavigateToCategory(cat.CategoryId))"><span>@(cat.CategoryName?.ToUpperInvariant())</span></a></li>
         }
         </ul>
-  
     </div>
-
-
 </div>
+
 @code {
-
-    [Inject]
-    private NavigationManager NavigationManager { get; set; }
-
-
-
     protected override async Task OnInitializedAsync()
     {
         await categoryService.GetCategories();
-
     }
-    private async void NavigateToProduct(int productId)
+
+    private void NavigateToCategory(int categoryId)
     {
-        var result = await categoryService.GetProductsByCategory(productId);
-        NavigationManager.NavigateTo($"/category/{productId}");
+        NavigationManager.NavigateTo($"/category/{categoryId}");
     }
 }
