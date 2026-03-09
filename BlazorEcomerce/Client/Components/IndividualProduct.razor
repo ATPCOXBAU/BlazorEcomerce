@@ -1,48 +1,42 @@
-﻿@inject IProductService productService
+@inject IProductService productService
 @inject ICartService CartService
 
 @if (product == null)
 {
     <div class="container">
-        <div class="loader" style="--b: 20px;--c:#000;width:80px;--n:15;--g:7deg"></div>
+        <div class="loader"></div>
     </div>
 }
 else
 {
-
     <div class="container">
-             <div class="card  p-3 bg-white m-3">
-                <div class="text">
-                    <h2 class="word-wrap">@product.Title</h2>
-                </div>
-                <div class="middle_container">
-                    <div class=image-container>
+        <div class="card">
+            <div class="text">
+                <h2>@product.Title</h2>
+            </div>
+            <div class="middle_container">
+                <div class="image-container">
                     <img src="@product.ImageUrl" alt="@product.Title">
-                    </div>
-                    <div class="text">
-                        <h4 class="word-wrap">@product.Description</h4>
-
-                    </div>
                 </div>
+                <div class="text">
+                    <h4>@product.Description</h4>
+                </div>
+            </div>
+            <div class="product-price">$@((product.Price ?? 0).ToString("F2"))</div>
             @if (IsinCart)
             {
-                <button class="btn bg-success" > Product already in the cart.</button>
+                <button class="in-cart-btn" disabled>Already in cart</button>
             }
             else
             {
-                 <button class="button-9" @onclick="AddToCart">
+                <button class="button-9" @onclick="AddToCart">
                     Add to Cart
                 </button>
             }
-            </div>
-
-
+        </div>
     </div>
     <ShoppingCart />
-
-
 }
-
 
 @code {
     private Product product;

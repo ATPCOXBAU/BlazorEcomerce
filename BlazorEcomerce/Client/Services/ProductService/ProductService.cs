@@ -16,14 +16,14 @@ namespace BlazorEcomerce.Client.Services.ProductService
         public async Task<ServiceResponse<Product>> GetProductById(int Id)
         {
             var result =
-                   await http.GetFromJsonAsync<ServiceResponse<Product>>("api/product/ById?Id=" + Id );
+                   await http.GetFromJsonAsync<ServiceResponse<Product>>(ApiRoutes.ProductById + Id);
             return result;
         }
 
         public async Task GetProducts()
         {
             var result =
-                await http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product");
+                await http.GetFromJsonAsync<ServiceResponse<List<Product>>>(ApiRoutes.Products);
             if (result != null && result.Data != null)
             {
                 Products = result.Data;
@@ -33,7 +33,7 @@ namespace BlazorEcomerce.Client.Services.ProductService
         public async Task SearchProducts(string searchText)
         {
             var result =
-                await http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/product/search/{searchText}");
+                await http.GetFromJsonAsync<ServiceResponse<List<Product>>>(ApiRoutes.ProductSearch + searchText);
             if (result != null && result.Data != null)
             {
                 Products = result.Data;

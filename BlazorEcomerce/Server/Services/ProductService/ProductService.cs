@@ -15,8 +15,7 @@ namespace BlazorEcomerce.Server.Services.ProductService
         public async Task<ServiceResponse<Product>> GetProductById(int Id)
         {
             var response = new ServiceResponse<Product>();
-            var data = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
-    
+            var data = await _context.Products.FirstOrDefaultAsync(p => p.Id == Id);
 
             if (data != null)
             {
@@ -25,9 +24,9 @@ namespace BlazorEcomerce.Server.Services.ProductService
             else
             {
                 response.Success = false;
-                response.Message = "El producto no existe.";
+                response.Message = "Product not found.";
             }
-          
+
             return response;
         }
 

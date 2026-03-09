@@ -18,7 +18,7 @@ namespace BlazorEcomerce.Client.Services.CategoryService
         public async Task GetCategories()
         {
             var result =
-                await http.GetFromJsonAsync<ServiceResponse<List<Category>>>("api/category");
+                await http.GetFromJsonAsync<ServiceResponse<List<Category>>>(ApiRoutes.Categories);
             if (result != null && result.Data != null)
             {
                 Categories = result.Data;
@@ -27,7 +27,7 @@ namespace BlazorEcomerce.Client.Services.CategoryService
 
         public async  Task<ServiceResponse<List<Product>>?> GetProductsByCategory(int id)
         {
-            var result = await http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/category/ById?Id={id}");
+            var result = await http.GetFromJsonAsync<ServiceResponse<List<Product>>>(ApiRoutes.ProductsByCategory + id);
             if (result != null && result.Data != null)
             {
                 return result;
